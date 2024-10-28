@@ -12,6 +12,7 @@ services:
       - ./html:/usr/share/nginx/html
     networks:
       - web
+    restart: always
 
   letsencrypt:
     image: nginxproxy/acme-companion
@@ -28,6 +29,7 @@ services:
       - nginx-proxy
     networks:
       - web
+    restart: always
 
 networks:
   web:

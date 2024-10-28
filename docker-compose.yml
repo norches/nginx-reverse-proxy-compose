@@ -13,9 +13,9 @@ services:
     networks:
       - web
 
-  acme-companion:
+  letsencrypt:
     image: nginxproxy/acme-companion
-    container_name: acme-companion
+    container_name: nginx-letsencrypt
     environment:
       NGINX_PROXY_CONTAINER: nginx-proxy
       ACME_CA_URI: https://acme-v02.api.letsencrypt.org/directory
@@ -24,12 +24,11 @@ services:
       - ./certs:/etc/nginx/certs
       - ./vhost.d:/etc/nginx/vhost.d
       - ./html:/usr/share/nginx/html
-      - ./acme:/etc/acme.sh
+    depends_on:
+      - nginx-proxy
     networks:
       - web
 
 networks:
   web:
     external: true
-
-
